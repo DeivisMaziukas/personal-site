@@ -1,509 +1,1121 @@
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
-<!-- * * * * * * * to get started with your project! * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
-<style>
-  :host {
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
-    font-size: 14px;
-    color: #333;
-    box-sizing: border-box;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 8px 0;
-  }
-
-  p {
-    margin: 0;
-  }
-
-  .spacer {
-    flex: 1;
-  }
-
-  .toolbar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 60px;
-    display: flex;
-    align-items: center;
-    background-color: #1976d2;
-    color: white;
-    font-weight: 600;
-  }
-
-  .toolbar img {
-    margin: 0 16px;
-  }
-
-  .toolbar #twitter-logo {
-    height: 40px;
-    margin: 0 8px;
-  }
-
-  .toolbar #youtube-logo {
-    height: 40px;
-    margin: 0 16px;
-  }
-
-  .toolbar #twitter-logo:hover,
-  .toolbar #youtube-logo:hover {
-    opacity: 0.8;
-  }
-
-  .content {
-    display: flex;
-    margin: 82px auto 32px;
-    padding: 0 16px;
-    max-width: 960px;
-    flex-direction: column;
-    align-items: center;
-  }
-
-  svg.material-icons {
-    height: 24px;
-    width: auto;
-  }
-
-  svg.material-icons:not(:last-child) {
-    margin-right: 8px;
-  }
-
-  .card svg.material-icons path {
-    fill: #888;
-  }
-
-  .card-container {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 16px;
-  }
-
-  .card {
-    border-radius: 4px;
-    border: 1px solid #eee;
-    background-color: #fafafa;
-    height: 40px;
-    width: 200px;
-    margin: 0 8px 16px;
-    padding: 16px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    transition: all 0.2s ease-in-out;
-    line-height: 24px;
-  }
-
-  .card-container .card:not(:last-child) {
-    margin-right: 0;
-  }
-
-  .card.card-small {
-    height: 16px;
-    width: 168px;
-  }
-
-  .card-container .card:not(.highlight-card) {
-    cursor: pointer;
-  }
-
-  .card-container .card:not(.highlight-card):hover {
-    transform: translateY(-3px);
-    box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
-  }
-
-  .card-container .card:not(.highlight-card):hover .material-icons path {
-    fill: rgb(105, 103, 103);
-  }
-
-  .card.highlight-card {
-    background-color: #1976d2;
-    color: white;
-    font-weight: 600;
-    border: none;
-    width: auto;
-    min-width: 30%;
-    position: relative;
-  }
-
-  .card.card.highlight-card span {
-    margin-left: 60px;
-  }
-
-  svg#rocket {
-    width: 80px;
-    position: absolute;
-    left: -10px;
-    top: -24px;
-  }
-
-  svg#rocket-smoke {
-    height: calc(100vh - 95px);
-    position: absolute;
-    top: 10px;
-    right: 180px;
-    z-index: -10;
-  }
-
-  a,
-  a:visited,
-  a:hover {
-    color: #1976d2;
-    text-decoration: none;
-  }
-
-  a:hover {
-    color: #125699;
-  }
-
-  .terminal {
-    position: relative;
-    width: 80%;
-    max-width: 600px;
-    border-radius: 6px;
-    padding-top: 45px;
-    margin-top: 8px;
-    overflow: hidden;
-    background-color: rgb(15, 15, 16);
-  }
-
-  .terminal::before {
-    content: "\2022 \2022 \2022";
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 4px;
-    background: rgb(58, 58, 58);
-    color: #c2c3c4;
-    width: 100%;
-    font-size: 2rem;
-    line-height: 0;
-    padding: 14px 0;
-    text-indent: 4px;
-  }
-
-  .terminal pre {
-    font-family: SFMono-Regular,Consolas,Liberation Mono,Menlo,monospace;
-    color: white;
-    padding: 0 1rem 1rem;
-    margin: 0;
-  }
-
-  .circle-link {
-    height: 40px;
-    width: 40px;
-    border-radius: 40px;
-    margin: 8px;
-    background-color: white;
-    border: 1px solid #eeeeee;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
-    transition: 1s ease-out;
-  }
-
-  .circle-link:hover {
-    transform: translateY(-0.25rem);
-    box-shadow: 0px 3px 15px rgba(0, 0, 0, 0.2);
-  }
-
-  footer {
-    margin-top: 8px;
-    display: flex;
-    align-items: center;
-    line-height: 20px;
-  }
-
-  footer a {
-    display: flex;
-    align-items: center;
-  }
-
-  .github-star-badge {
-    color: #24292e;
-    display: flex;
-    align-items: center;
-    font-size: 12px;
-    padding: 3px 10px;
-    border: 1px solid rgba(27,31,35,.2);
-    border-radius: 3px;
-    background-image: linear-gradient(-180deg,#fafbfc,#eff3f6 90%);
-    margin-left: 4px;
-    font-weight: 600;
-    font-family: -apple-system,BlinkMacSystemFont,Segoe UI,Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji,Segoe UI Symbol;
-  }
-
-  .github-star-badge:hover {
-    background-image: linear-gradient(-180deg,#f0f3f6,#e6ebf1 90%);
-    border-color: rgba(27,31,35,.35);
-    background-position: -.5em;
-  }
-
-  .github-star-badge .material-icons {
-    height: 16px;
-    width: 16px;
-    margin-right: 4px;
-  }
-
-  svg#clouds {
-    position: fixed;
-    bottom: -160px;
-    left: -230px;
-    z-index: -10;
-    width: 1920px;
-  }
 
 
-  /* Responsive Styles */
-  @media screen and (max-width: 767px) {
+   <!-- <ng-particles id="tsparticles" [style]="myStyle" [options]="options" (particlesLoaded)="particlesLoaded($event)"></ng-particles> -->
+   <!-- <ng-particles id="tsparticles2" [style]="myStyle" [options]="options2" (particlesLoaded)="particlesLoaded($event)"></ng-particles> 1920x1080-->
+   <!-- preserveAspectRatio="none" -->
+   <svg preserveAspectRatio="none" id="background" width="1920px" height="1080px" viewBox="0 0 1920 1080" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+      
+      <g id="paths" class="path" stroke="#00ffff" stroke-width="3" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-opacity="1" stroke-dasharray="30,150" stroke-dashoffset="2000">
+        
+         <g id="left" transform="translate(461.000000, 416.000000)" vaikciojantiswormas >   
+          <polyline points="-360 0 18 0 27 0 55 28 95 28 115 48 127 48"></polyline>
+          <polyline points="18 23 27 23 47 43 86 43 107 64 127 64"></polyline>
+          <polyline points="-8 10 26 10 51 35 90 35 111 56 127 56"></polyline>
+          <polyline points="72 92 98 92 110 80 127 80"></polyline>
+          <polyline points="84 80 99 80 107 72 127 72"></polyline>
+        </g>
 
-    .card-container > *:not(.circle-link) ,
-    .terminal {
-      width: 100%;
-    }
 
-    .card:not(.highlight-card) {
-      height: 16px;
-      margin: 8px 0;
-    }
+        <g stroke="#ff0000" id="naujas_path" transform="translate(10, 10)">
+         <polyline points="0  0 500  0 550 50 650 50 700 100 750 100 840 190 840 500"></polyline>
+         <polyline points="0 10 500 10 550 60 650 60 700 110 750 110 830 190 830 500"></polyline>
+         <polyline points="0 20 500 20 550 70 650 70 700 120 750 120 820 190 820 500"></polyline>
+         <polyline points="0 30 500 30 550 80 650 80 700 130 750 130 810 190 810 500"></polyline>
+         <polyline points="0 40 500 40 550 90 650 90 700 140 750 140 800 190 800 500"></polyline>
 
-    .card.highlight-card span {
-      margin-left: 72px;
-    }
+        </g>
 
-    svg#rocket-smoke {
-      right: 120px;
-      transform: rotate(-5deg);
-    }
-  }
 
-  @media screen and (max-width: 575px) {
-    svg#rocket-smoke {
-      display: none;
-      visibility: hidden;
-    }
-  }
-</style>
+        <g id="bottom" transform="translate(596.000000, 504.000000)">
+          <polyline points="4.02077033 67.0000542 4.02077033 63.0208243 12.0415946 55 12.0415946 40.0415946 0 28 0 -5.68434189e-14"></polyline>
+          <polyline points="20 67 20 36 8 24 8 0"></polyline>
+          <polyline points="27 59 27 31 16 20 16 0"></polyline>
+          <polyline points="36 67 36 28 24 16 24 0"></polyline>
+          <polyline points="48 56 48 48 44 44 44 23 32 11 32 0"></polyline>
+        </g>
 
-<!-- Toolbar -->
-<div class="toolbar" role="banner">
-  <img
-    width="40"
-    alt="Angular Logo"
-    src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAyNTAgMjUwIj4KICAgIDxwYXRoIGZpbGw9IiNERDAwMzEiIGQ9Ik0xMjUgMzBMMzEuOSA2My4ybDE0LjIgMTIzLjFMMTI1IDIzMGw3OC45LTQzLjcgMTQuMi0xMjMuMXoiIC8+CiAgICA8cGF0aCBmaWxsPSIjQzMwMDJGIiBkPSJNMTI1IDMwdjIyLjItLjFWMjMwbDc4LjktNDMuNyAxNC4yLTEyMy4xTDEyNSAzMHoiIC8+CiAgICA8cGF0aCAgZmlsbD0iI0ZGRkZGRiIgZD0iTTEyNSA1Mi4xTDY2LjggMTgyLjZoMjEuN2wxMS43LTI5LjJoNDkuNGwxMS43IDI5LjJIMTgzTDEyNSA1Mi4xem0xNyA4My4zaC0zNGwxNy00MC45IDE3IDQwLjl6IiAvPgogIDwvc3ZnPg=="
-  />
-  <span>Welcome</span>
-    <div class="spacer"></div>
-    <a aria-label="Angular on twitter" target="_blank" rel="noopener" href="https://twitter.com/angular" title="Twitter">
-      <svg id="twitter-logo" height="24" data-name="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 400">
-        <rect width="400" height="400" fill="none"/>
-        <path d="M153.62,301.59c94.34,0,145.94-78.16,145.94-145.94,0-2.22,0-4.43-.15-6.63A104.36,104.36,0,0,0,325,122.47a102.38,102.38,0,0,1-29.46,8.07,51.47,51.47,0,0,0,22.55-28.37,102.79,102.79,0,0,1-32.57,12.45,51.34,51.34,0,0,0-87.41,46.78A145.62,145.62,0,0,1,92.4,107.81a51.33,51.33,0,0,0,15.88,68.47A50.91,50.91,0,0,1,85,169.86c0,.21,0,.43,0,.65a51.31,51.31,0,0,0,41.15,50.28,51.21,51.21,0,0,1-23.16.88,51.35,51.35,0,0,0,47.92,35.62,102.92,102.92,0,0,1-63.7,22A104.41,104.41,0,0,1,75,278.55a145.21,145.21,0,0,0,78.62,23" fill="#fff"/>
-      </svg>
-    </a>
-    <a aria-label="Angular on YouTube" target="_blank" rel="noopener" href="https://youtube.com/angular" title="YouTube">
-      <svg id="youtube-logo" height="24" width="24" data-name="Logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="#fff">
-        <path d="M0 0h24v24H0V0z" fill="none"/>
-        <path d="M21.58 7.19c-.23-.86-.91-1.54-1.77-1.77C18.25 5 12 5 12 5s-6.25 0-7.81.42c-.86.23-1.54.91-1.77 1.77C2 8.75 2 12 2 12s0 3.25.42 4.81c.23.86.91 1.54 1.77 1.77C5.75 19 12 19 12 19s6.25 0 7.81-.42c.86-.23 1.54-.91 1.77-1.77C22 15.25 22 12 22 12s0-3.25-.42-4.81zM10 15V9l5.2 3-5.2 3z"/>
-      </svg>
-    </a>
-</div>
+      </g>
 
-<div class="content" role="main">
+      <g id="paths-2" class="path-2" stroke="#00ffff" stroke-width="3" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-opacity="1" stroke-dasharray="50,150" stroke-dashoffset="2000">
+        <g id="right" transform="translate(620.000000, 427.000000)">
+          <polyline points="16 69 28 69 44 85 52 85 56 81 68 81"></polyline>
+          <polyline points="16 61 100 61 104 65 111 65"></polyline>
+          <polyline points="16 53 120 53 132.041595 65.0415946 132.041595 72.0001243"></polyline>
+          <polyline points="16 45 124.00463 45 141.002315 61.9976854"></polyline>
+          <polyline points="16 37 128 37 144 53 152 53"></polyline>
+          <polyline points="8 28 8 21 17 12 44 12 60 28 131 28 140 37 152 37"></polyline>
+          <polyline points="0 28 0 16 16 0 22 0"></polyline>
+        </g>
 
-  <!-- Highlight Card -->
-  <div class="card highlight-card card-small">
+      </g>
 
-    <svg id="rocket" xmlns="http://www.w3.org/2000/svg" width="101.678" height="101.678" viewBox="0 0 101.678 101.678">
-      <title>Rocket Ship</title>
-      <g id="Group_83" data-name="Group 83" transform="translate(-141 -696)">
-        <circle id="Ellipse_8" data-name="Ellipse 8" cx="50.839" cy="50.839" r="50.839" transform="translate(141 696)" fill="#dd0031"/>
-        <g id="Group_47" data-name="Group 47" transform="translate(165.185 720.185)">
-          <path id="Path_33" data-name="Path 33" d="M3.4,42.615a3.084,3.084,0,0,0,3.553,3.553,21.419,21.419,0,0,0,12.215-6.107L9.511,30.4A21.419,21.419,0,0,0,3.4,42.615Z" transform="translate(0.371 3.363)" fill="#fff"/>
-          <path id="Path_34" data-name="Path 34" d="M53.3,3.221A3.09,3.09,0,0,0,50.081,0,48.227,48.227,0,0,0,18.322,13.437c-6-1.666-14.991-1.221-18.322,7.218A33.892,33.892,0,0,1,9.439,25.1l-.333.666a3.013,3.013,0,0,0,.555,3.553L23.985,43.641a2.9,2.9,0,0,0,3.553.555l.666-.333A33.892,33.892,0,0,1,32.647,53.3c8.55-3.664,8.884-12.326,7.218-18.322A48.227,48.227,0,0,0,53.3,3.221ZM34.424,9.772a6.439,6.439,0,1,1,9.106,9.106,6.368,6.368,0,0,1-9.106,0A6.467,6.467,0,0,1,34.424,9.772Z" transform="translate(0 0.005)" fill="#fff"/>
+      <g id="paths-bg" stroke="#1e1e1e" stroke-width="1.5" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round"> <!--pagrindiniai keliai -->
+        <g id="left" transform="translate(461.000000, 416.000000)">
+          <polyline points="-360 0 18 0 27 0 55 28 95 28 115 48 127 48"></polyline>
+          <polyline points="18 23 27 23 47 43 86 43 107 64 127 64"></polyline>
+          <polyline points="-8 10 26 10 51 35 90 35 111 56 127 56"></polyline>
+          <polyline points="72 92 98 92 110 80 127 80"></polyline>
+          <polyline points="84 80 99 80 107 72 127 72"></polyline>
+        </g>
+
+      <!-- 2b2b2b -->
+      <!-- 000000 -->
+       <g stroke="transparent" id="naujas" transform="translate(10, 10)">
+         <polyline points='0 0 1920 0'></polyline>
+         <polyline points='0 10 1920 10'></polyline>
+         <polyline points='0 20 1920 20'></polyline>
+         <polyline points='0 30 1920 30'></polyline>
+         <polyline points='0 40 1920 40'></polyline>
+         <polyline points='0 50 1920 50'></polyline>
+         <polyline points='0 60 1920 60'></polyline>
+         <polyline points='0 70 1920 70'></polyline>
+         <polyline points='0 80 1920 80'></polyline>
+         <polyline points='0 90 1920 90'></polyline>
+         <polyline points='0 100 1920 100'></polyline>
+         <polyline points='0 110 1920 110'></polyline>
+         <polyline points='0 120 1920 120'></polyline>
+         <polyline points='0 130 1920 130'></polyline>
+         <polyline points='0 140 1920 140'></polyline>
+         <polyline points='0 150 1920 150'></polyline>
+         <polyline points='0 160 1920 160'></polyline>
+         <polyline points='0 170 1920 170'></polyline>
+         <polyline points='0 180 1920 180'></polyline>
+         <polyline points='0 190 1920 190'></polyline>
+         <polyline points='0 200 1920 200'></polyline>
+         <polyline points='0 210 1920 210'></polyline>
+         <polyline points='0 220 1920 220'></polyline>
+         <polyline points='0 230 1920 230'></polyline>
+         <polyline points='0 240 1920 240'></polyline>
+         <polyline points='0 250 1920 250'></polyline>
+         <polyline points='0 260 1920 260'></polyline>
+         <polyline points='0 270 1920 270'></polyline>
+         <polyline points='0 280 1920 280'></polyline>
+         <polyline points='0 290 1920 290'></polyline>
+         <polyline points='0 300 1920 300'></polyline>
+         <polyline points='0 310 1920 310'></polyline>
+         <polyline points='0 320 1920 320'></polyline>
+         <polyline points='0 330 1920 330'></polyline>
+         <polyline points='0 340 1920 340'></polyline>
+         <polyline points='0 350 1920 350'></polyline>
+         <polyline points='0 360 1920 360'></polyline>
+         <polyline points='0 370 1920 370'></polyline>
+         <polyline points='0 380 1920 380'></polyline>
+         <polyline points='0 390 1920 390'></polyline>
+         <polyline points='0 400 1920 400'></polyline>
+         <polyline points='0 410 1920 410'></polyline>
+         <polyline points='0 420 1920 420'></polyline>
+         <polyline points='0 430 1920 430'></polyline>
+         <polyline points='0 440 1920 440'></polyline>
+         <polyline points='0 450 1920 450'></polyline>
+         <polyline points='0 460 1920 460'></polyline>
+         <polyline points='0 470 1920 470'></polyline>
+         <polyline points='0 480 1920 480'></polyline>
+         <polyline points='0 490 1920 490'></polyline>
+         <polyline points='0 500 1920 500'></polyline>
+         <polyline points='0 510 1920 510'></polyline>
+         <polyline points='0 520 1920 520'></polyline>
+         <polyline points='0 530 1920 530'></polyline>
+         <polyline points='0 540 1920 540'></polyline>
+         <polyline points='0 550 1920 550'></polyline>
+         <polyline points='0 560 1920 560'></polyline>
+         <polyline points='0 570 1920 570'></polyline>
+         <polyline points='0 580 1920 580'></polyline>
+         <polyline points='0 590 1920 590'></polyline>
+         <polyline points='0 600 1920 600'></polyline>
+         <polyline points='0 610 1920 610'></polyline>
+         <polyline points='0 620 1920 620'></polyline>
+         <polyline points='0 630 1920 630'></polyline>
+         <polyline points='0 640 1920 640'></polyline>
+         <polyline points='0 650 1920 650'></polyline>
+         <polyline points='0 660 1920 660'></polyline>
+         <polyline points='0 670 1920 670'></polyline>
+         <polyline points='0 680 1920 680'></polyline>
+         <polyline points='0 690 1920 690'></polyline>
+         <polyline points='0 700 1920 700'></polyline>
+         <polyline points='0 710 1920 710'></polyline>
+         <polyline points='0 720 1920 720'></polyline>
+         <polyline points='0 730 1920 730'></polyline>
+         <polyline points='0 740 1920 740'></polyline>
+         <polyline points='0 750 1920 750'></polyline>
+         <polyline points='0 760 1920 760'></polyline>
+         <polyline points='0 770 1920 770'></polyline>
+         <polyline points='0 780 1920 780'></polyline>
+         <polyline points='0 790 1920 790'></polyline>
+         <polyline points='0 800 1920 800'></polyline>
+         <polyline points='0 810 1920 810'></polyline>
+         <polyline points='0 820 1920 820'></polyline>
+         <polyline points='0 830 1920 830'></polyline>
+         <polyline points='0 840 1920 840'></polyline>
+         <polyline points='0 850 1920 850'></polyline>
+         <polyline points='0 860 1920 860'></polyline>
+         <polyline points='0 870 1920 870'></polyline>
+         <polyline points='0 880 1920 880'></polyline>
+         <polyline points='0 890 1920 890'></polyline>
+         <polyline points='0 900 1920 900'></polyline>
+         <polyline points='0 910 1920 910'></polyline>
+         <polyline points='0 920 1920 920'></polyline>
+         <polyline points='0 930 1920 930'></polyline>
+         <polyline points='0 940 1920 940'></polyline>
+         <polyline points='0 950 1920 950'></polyline>
+         <polyline points='0 960 1920 960'></polyline>
+         <polyline points='0 970 1920 970'></polyline>
+         <polyline points='0 980 1920 980'></polyline>
+         <polyline points='0 990 1920 990'></polyline>
+         <polyline points='0 1000 1920 1000'></polyline>
+         <polyline points='0 1010 1920 1010'></polyline>
+         <polyline points='0 1020 1920 1020'></polyline>
+         <polyline points='0 1030 1920 1030'></polyline>
+         <polyline points='0 1040 1920 1040'></polyline>
+         <polyline points='0 1050 1920 1050'></polyline>
+         <polyline points='0 1060 1920 1060'></polyline>
+         <polyline points='0 1070 1920 1070'></polyline>
+         <polyline points='0 1080 1920 1080'></polyline>
+         <polyline points='0 1090 1920 1090'></polyline>
+         <polyline points='0 1100 1920 1100'></polyline>
+         <polyline points='0 1110 1920 1110'></polyline>
+         <polyline points='0 1120 1920 1120'></polyline>
+         <polyline points='0 1130 1920 1130'></polyline>
+         <polyline points='0 1140 1920 1140'></polyline>
+         <polyline points='0 1150 1920 1150'></polyline>
+         <polyline points='0 1160 1920 1160'></polyline>
+         <polyline points='0 1170 1920 1170'></polyline>
+         <polyline points='0 1180 1920 1180'></polyline>
+         <polyline points='0 1190 1920 1190'></polyline>
+         <polyline points='0 1200 1920 1200'></polyline>
+         <polyline points='0 1210 1920 1210'></polyline>
+         <polyline points='0 1220 1920 1220'></polyline>
+         <polyline points='0 1230 1920 1230'></polyline>
+         <polyline points='0 1240 1920 1240'></polyline>
+         <polyline points='0 1250 1920 1250'></polyline>
+         <polyline points='0 1260 1920 1260'></polyline>
+         <polyline points='0 1270 1920 1270'></polyline>
+         <polyline points='0 1280 1920 1280'></polyline>
+         <polyline points='0 1290 1920 1290'></polyline>
+         <polyline points='0 1300 1920 1300'></polyline>
+         <polyline points='0 1310 1920 1310'></polyline>
+         <polyline points='0 1320 1920 1320'></polyline>
+         <polyline points='0 1330 1920 1330'></polyline>
+         <polyline points='0 1340 1920 1340'></polyline>
+         <polyline points='0 1350 1920 1350'></polyline>
+         <polyline points='0 1360 1920 1360'></polyline>
+         <polyline points='0 1370 1920 1370'></polyline>
+         <polyline points='0 1380 1920 1380'></polyline>
+         <polyline points='0 1390 1920 1390'></polyline>
+         <polyline points='0 1400 1920 1400'></polyline>
+         <polyline points='0 1410 1920 1410'></polyline>
+         <polyline points='0 1420 1920 1420'></polyline>
+         <polyline points='0 1430 1920 1430'></polyline>
+         <polyline points='0 1440 1920 1440'></polyline>
+         <polyline points='0 1450 1920 1450'></polyline>
+         <polyline points='0 1460 1920 1460'></polyline>
+         <polyline points='0 1470 1920 1470'></polyline>
+         <polyline points='0 1480 1920 1480'></polyline>
+         <polyline points='0 1490 1920 1490'></polyline>
+         <polyline points='0 1500 1920 1500'></polyline>
+         <polyline points='0 1510 1920 1510'></polyline>
+         <polyline points='0 1520 1920 1520'></polyline>
+         <polyline points='0 1530 1920 1530'></polyline>
+         <polyline points='0 1540 1920 1540'></polyline>
+         <polyline points='0 1550 1920 1550'></polyline>
+         <polyline points='0 1560 1920 1560'></polyline>
+         <polyline points='0 1570 1920 1570'></polyline>
+         <polyline points='0 1580 1920 1580'></polyline>
+         <polyline points='0 1590 1920 1590'></polyline>
+         <polyline points='0 1600 1920 1600'></polyline>
+         <polyline points='0 1610 1920 1610'></polyline>
+         <polyline points='0 1620 1920 1620'></polyline>
+         <polyline points='0 1630 1920 1630'></polyline>
+         <polyline points='0 1640 1920 1640'></polyline>
+         <polyline points='0 1650 1920 1650'></polyline>
+         <polyline points='0 1660 1920 1660'></polyline>
+         <polyline points='0 1670 1920 1670'></polyline>
+         <polyline points='0 1680 1920 1680'></polyline>
+         <polyline points='0 1690 1920 1690'></polyline>
+         <polyline points='0 1700 1920 1700'></polyline>
+         <polyline points='0 1710 1920 1710'></polyline>
+         <polyline points='0 1720 1920 1720'></polyline>
+         <polyline points='0 1730 1920 1730'></polyline>
+         <polyline points='0 1740 1920 1740'></polyline>
+         <polyline points='0 1750 1920 1750'></polyline>
+         <polyline points='0 1760 1920 1760'></polyline>
+         <polyline points='0 1770 1920 1770'></polyline>
+         <polyline points='0 1780 1920 1780'></polyline>
+         <polyline points='0 1790 1920 1790'></polyline>
+         <polyline points='0 1800 1920 1800'></polyline>
+         <polyline points='0 1810 1920 1810'></polyline>
+         <polyline points='0 1820 1920 1820'></polyline>
+         <polyline points='0 1830 1920 1830'></polyline>
+         <polyline points='0 1840 1920 1840'></polyline>
+         <polyline points='0 1850 1920 1850'></polyline>
+         <polyline points='0 1860 1920 1860'></polyline>
+         <polyline points='0 1870 1920 1870'></polyline>
+         <polyline points='0 1880 1920 1880'></polyline>
+         <polyline points='0 1890 1920 1890'></polyline>
+         <polyline points='0 1900 1920 1900'></polyline>
+         <polyline points='0 1910 1920 1910'></polyline>
+         <polyline points='0 1920 1920 1920'></polyline>
+         <polyline points='0 1930 1920 1930'></polyline>
+         <polyline points='0 1940 1920 1940'></polyline>
+         <polyline points='0 1950 1920 1950'></polyline>
+         
+         <polyline points='0 0 0 1080'></polyline>
+         <polyline points='10 0 10 1080'></polyline>
+         <polyline points='20 0 20 1080'></polyline>
+         <polyline points='30 0 30 1080'></polyline>
+         <polyline points='40 0 40 1080'></polyline>
+         <polyline points='50 0 50 1080'></polyline>
+         <polyline points='60 0 60 1080'></polyline>
+         <polyline points='70 0 70 1080'></polyline>
+         <polyline points='80 0 80 1080'></polyline>
+         <polyline points='90 0 90 1080'></polyline>
+         <polyline points='100 0 100 1080'></polyline>
+         <polyline points='110 0 110 1080'></polyline>
+         <polyline points='120 0 120 1080'></polyline>
+         <polyline points='130 0 130 1080'></polyline>
+         <polyline points='140 0 140 1080'></polyline>
+         <polyline points='150 0 150 1080'></polyline>
+         <polyline points='160 0 160 1080'></polyline>
+         <polyline points='170 0 170 1080'></polyline>
+         <polyline points='180 0 180 1080'></polyline>
+         <polyline points='190 0 190 1080'></polyline>
+         <polyline points='200 0 200 1080'></polyline>
+         <polyline points='210 0 210 1080'></polyline>
+         <polyline points='220 0 220 1080'></polyline>
+         <polyline points='230 0 230 1080'></polyline>
+         <polyline points='240 0 240 1080'></polyline>
+         <polyline points='250 0 250 1080'></polyline>
+         <polyline points='260 0 260 1080'></polyline>
+         <polyline points='270 0 270 1080'></polyline>
+         <polyline points='280 0 280 1080'></polyline>
+         <polyline points='290 0 290 1080'></polyline>
+         <polyline points='300 0 300 1080'></polyline>
+         <polyline points='310 0 310 1080'></polyline>
+         <polyline points='320 0 320 1080'></polyline>
+         <polyline points='330 0 330 1080'></polyline>
+         <polyline points='340 0 340 1080'></polyline>
+         <polyline points='350 0 350 1080'></polyline>
+         <polyline points='360 0 360 1080'></polyline>
+         <polyline points='370 0 370 1080'></polyline>
+         <polyline points='380 0 380 1080'></polyline>
+         <polyline points='390 0 390 1080'></polyline>
+         <polyline points='400 0 400 1080'></polyline>
+         <polyline points='410 0 410 1080'></polyline>
+         <polyline points='420 0 420 1080'></polyline>
+         <polyline points='430 0 430 1080'></polyline>
+         <polyline points='440 0 440 1080'></polyline>
+         <polyline points='450 0 450 1080'></polyline>
+         <polyline points='460 0 460 1080'></polyline>
+         <polyline points='470 0 470 1080'></polyline>
+         <polyline points='480 0 480 1080'></polyline>
+         <polyline points='490 0 490 1080'></polyline>
+         <polyline points='500 0 500 1080'></polyline>
+         <polyline points='510 0 510 1080'></polyline>
+         <polyline points='520 0 520 1080'></polyline>
+         <polyline points='530 0 530 1080'></polyline>
+         <polyline points='540 0 540 1080'></polyline>
+         <polyline points='550 0 550 1080'></polyline>
+         <polyline points='560 0 560 1080'></polyline>
+         <polyline points='570 0 570 1080'></polyline>
+         <polyline points='580 0 580 1080'></polyline>
+         <polyline points='590 0 590 1080'></polyline>
+         <polyline points='600 0 600 1080'></polyline>
+         <polyline points='610 0 610 1080'></polyline>
+         <polyline points='620 0 620 1080'></polyline>
+         <polyline points='630 0 630 1080'></polyline>
+         <polyline points='640 0 640 1080'></polyline>
+         <polyline points='650 0 650 1080'></polyline>
+         <polyline points='660 0 660 1080'></polyline>
+         <polyline points='670 0 670 1080'></polyline>
+         <polyline points='680 0 680 1080'></polyline>
+         <polyline points='690 0 690 1080'></polyline>
+         <polyline points='700 0 700 1080'></polyline>
+         <polyline points='710 0 710 1080'></polyline>
+         <polyline points='720 0 720 1080'></polyline>
+         <polyline points='730 0 730 1080'></polyline>
+         <polyline points='740 0 740 1080'></polyline>
+         <polyline points='750 0 750 1080'></polyline>
+         <polyline points='760 0 760 1080'></polyline>
+         <polyline points='770 0 770 1080'></polyline>
+         <polyline points='780 0 780 1080'></polyline>
+         <polyline points='790 0 790 1080'></polyline>
+         <polyline points='800 0 800 1080'></polyline>
+         <polyline points='810 0 810 1080'></polyline>
+         <polyline points='820 0 820 1080'></polyline>
+         <polyline points='830 0 830 1080'></polyline>
+         <polyline points='840 0 840 1080'></polyline>
+         <polyline points='850 0 850 1080'></polyline>
+         <polyline points='860 0 860 1080'></polyline>
+         <polyline points='870 0 870 1080'></polyline>
+         <polyline points='880 0 880 1080'></polyline>
+         <polyline points='890 0 890 1080'></polyline>
+         <polyline points='900 0 900 1080'></polyline>
+         <polyline points='910 0 910 1080'></polyline>
+         <polyline points='920 0 920 1080'></polyline>
+         <polyline points='930 0 930 1080'></polyline>
+         <polyline points='940 0 940 1080'></polyline>
+         <polyline points='950 0 950 1080'></polyline>
+         <polyline points='960 0 960 1080'></polyline>
+         <polyline points='970 0 970 1080'></polyline>
+         <polyline points='980 0 980 1080'></polyline>
+         <polyline points='990 0 990 1080'></polyline>
+         <polyline points='1000 0 1000 1080'></polyline>
+         <polyline points='1010 0 1010 1080'></polyline>
+         <polyline points='1020 0 1020 1080'></polyline>
+         <polyline points='1030 0 1030 1080'></polyline>
+         <polyline points='1040 0 1040 1080'></polyline>
+         <polyline points='1050 0 1050 1080'></polyline>
+         <polyline points='1060 0 1060 1080'></polyline>
+         <polyline points='1070 0 1070 1080'></polyline>
+         <polyline points='1080 0 1080 1080'></polyline>
+         <polyline points='1090 0 1090 1080'></polyline>
+         <polyline points='1100 0 1100 1080'></polyline>
+         <polyline points='1110 0 1110 1080'></polyline>
+         <polyline points='1120 0 1120 1080'></polyline>
+         <polyline points='1130 0 1130 1080'></polyline>
+         <polyline points='1140 0 1140 1080'></polyline>
+         <polyline points='1150 0 1150 1080'></polyline>
+         <polyline points='1160 0 1160 1080'></polyline>
+         <polyline points='1170 0 1170 1080'></polyline>
+         <polyline points='1180 0 1180 1080'></polyline>
+         <polyline points='1190 0 1190 1080'></polyline>
+         <polyline points='1200 0 1200 1080'></polyline>
+         <polyline points='1210 0 1210 1080'></polyline>
+         <polyline points='1220 0 1220 1080'></polyline>
+         <polyline points='1230 0 1230 1080'></polyline>
+         <polyline points='1240 0 1240 1080'></polyline>
+         <polyline points='1250 0 1250 1080'></polyline>
+         <polyline points='1260 0 1260 1080'></polyline>
+         <polyline points='1270 0 1270 1080'></polyline>
+         <polyline points='1280 0 1280 1080'></polyline>
+         <polyline points='1290 0 1290 1080'></polyline>
+         <polyline points='1300 0 1300 1080'></polyline>
+         <polyline points='1310 0 1310 1080'></polyline>
+         <polyline points='1320 0 1320 1080'></polyline>
+         <polyline points='1330 0 1330 1080'></polyline>
+         <polyline points='1340 0 1340 1080'></polyline>
+         <polyline points='1350 0 1350 1080'></polyline>
+         <polyline points='1360 0 1360 1080'></polyline>
+         <polyline points='1370 0 1370 1080'></polyline>
+         <polyline points='1380 0 1380 1080'></polyline>
+         <polyline points='1390 0 1390 1080'></polyline>
+         <polyline points='1400 0 1400 1080'></polyline>
+         <polyline points='1410 0 1410 1080'></polyline>
+         <polyline points='1420 0 1420 1080'></polyline>
+         <polyline points='1430 0 1430 1080'></polyline>
+         <polyline points='1440 0 1440 1080'></polyline>
+         <polyline points='1450 0 1450 1080'></polyline>
+         <polyline points='1460 0 1460 1080'></polyline>
+         <polyline points='1470 0 1470 1080'></polyline>
+         <polyline points='1480 0 1480 1080'></polyline>
+         <polyline points='1490 0 1490 1080'></polyline>
+         <polyline points='1500 0 1500 1080'></polyline>
+         <polyline points='1510 0 1510 1080'></polyline>
+         <polyline points='1520 0 1520 1080'></polyline>
+         <polyline points='1530 0 1530 1080'></polyline>
+         <polyline points='1540 0 1540 1080'></polyline>
+         <polyline points='1550 0 1550 1080'></polyline>
+         <polyline points='1560 0 1560 1080'></polyline>
+         <polyline points='1570 0 1570 1080'></polyline>
+         <polyline points='1580 0 1580 1080'></polyline>
+         <polyline points='1590 0 1590 1080'></polyline>
+         <polyline points='1600 0 1600 1080'></polyline>
+         <polyline points='1610 0 1610 1080'></polyline>
+         <polyline points='1620 0 1620 1080'></polyline>
+         <polyline points='1630 0 1630 1080'></polyline>
+         <polyline points='1640 0 1640 1080'></polyline>
+         <polyline points='1650 0 1650 1080'></polyline>
+         <polyline points='1660 0 1660 1080'></polyline>
+         <polyline points='1670 0 1670 1080'></polyline>
+         <polyline points='1680 0 1680 1080'></polyline>
+         <polyline points='1690 0 1690 1080'></polyline>
+         <polyline points='1700 0 1700 1080'></polyline>
+         <polyline points='1710 0 1710 1080'></polyline>
+         <polyline points='1720 0 1720 1080'></polyline>
+         <polyline points='1730 0 1730 1080'></polyline>
+         <polyline points='1740 0 1740 1080'></polyline>
+         <polyline points='1750 0 1750 1080'></polyline>
+         <polyline points='1760 0 1760 1080'></polyline>
+         <polyline points='1770 0 1770 1080'></polyline>
+         <polyline points='1780 0 1780 1080'></polyline>
+         <polyline points='1790 0 1790 1080'></polyline>
+         <polyline points='1800 0 1800 1080'></polyline>
+         <polyline points='1810 0 1810 1080'></polyline>
+         <polyline points='1820 0 1820 1080'></polyline>
+         <polyline points='1830 0 1830 1080'></polyline>
+         <polyline points='1840 0 1840 1080'></polyline>
+         <polyline points='1850 0 1850 1080'></polyline>
+         <polyline points='1860 0 1860 1080'></polyline>
+         <polyline points='1870 0 1870 1080'></polyline>
+         <polyline points='1880 0 1880 1080'></polyline>
+         <polyline points='1890 0 1890 1080'></polyline>
+         <polyline points='1900 0 1900 1080'></polyline>
+         <polyline points='1910 0 1910 1080'></polyline>
+         <polyline points='1920 0 1920 1080'></polyline>
+         <polyline points='1930 0 1930 1080'></polyline>
+         <polyline points='1940 0 1940 1080'></polyline>
+         <polyline points='1950 0 1950 1080'></polyline>
+         <polyline points='1960 0 1960 1080'></polyline>
+         
+      </g>
+
+
+      <!-- 2b2b2b -->
+      <!-- ff0000 -->
+      <g stroke="#2b2b2b" id="naujas" transform="translate(10, 10)">
+         <polyline points="0  0 500  0 550 50 650 50 700 100 750 100 840 190 840 500"></polyline>
+         <polyline points="0 10 500 10 550 60 650 60 700 110 750 110 830 190 830 500"></polyline>
+         <polyline points="0 20 500 20 550 70 650 70 700 120 750 120 820 190 820 500"></polyline>
+         <polyline points="0 30 500 30 550 80 650 80 700 130 750 130 810 190 810 500"></polyline>
+         <polyline points="0 40 500 40 550 90 650 90 700 140 750 140 800 190 800 500"></polyline>
+
+       </g> 
+
+
+
+
+
+
+
+        <g id="bottom" transform="translate(596.000000, 504.000000)">
+          <polyline points="4.02077033 67.0000542 4.02077033 63.0208243 12.0415946 55 12.0415946 40.0415946 0 28 0 -5.68434189e-14"></polyline>
+          <polyline points="20 67 20 36 8 24 8 0"></polyline>
+          <polyline points="27 59 27 31 16 20 16 0"></polyline>
+          <polyline points="36 67 36 28 24 16 24 0"></polyline>
+          <polyline points="48 56 48 48 44 44 44 23 32 11 32 0"></polyline>
+        </g>
+        <g id="right" transform="translate(620.000000, 427.000000)">
+          <polyline points="16 69 28 69 44 85 52 85 56 81 68 81"></polyline>
+          <polyline points="16 61 100 61 104 65 111 65"></polyline>
+          <polyline points="16 53 120 53 132.041595 65.0415946 132.041595 72.0001243"></polyline>
+          <polyline points="16 45 124.00463 45 141.002315 61.9976854"></polyline>
+          <polyline points="16 37 128 37 144 53 152 53"></polyline>
+          <polyline points="8 28 8 21 17 12 44 12 60 28 131 28 140 37 152 37"></polyline>
+          <polyline points="0 28 0 16 16 0 22 0"></polyline>
+        </g>
+        <g id="elements" transform="translate(453.000000, 412.000000)" stroke="#1e1e1e">
+          <rect x="135" y="44" width="48" height="48" rx="4"></rect>
+          <circle cx="87" cy="84" r="4"></circle>
+          <circle cx="75" cy="96" r="4"></circle>
+          <circle class="flash" cx="-356" cy="4" r="4"></circle>
+          <circle cx="22" cy="27" r="4"></circle>
+          <circle cx="4" cy="15" r="4"></circle>
+          <circle cx="193" cy="15" r="4"></circle>
+          <circle cx="323" cy="52" r="4"></circle>
+          <circle cx="323" cy="68" r="4"></circle>
+          <circle cx="311" cy="80" r="4"></circle>
+          <circle cx="282" cy="80" r="4"></circle>
+          <circle cx="179" cy="163" r="4"></circle>
+          <circle cx="191" cy="152" r="4"></circle>
+          <circle cx="163" cy="163" r="4"></circle>
+          <circle cx="147" cy="163" r="4"></circle>
+          <circle cx="299" cy="91" r="4"></circle>
+          <path d="M143,43 L143,31"></path>
+          <path d="M159,43 L159,31"></path>
+          <path d="M151,43 L151,31"></path>
         </g>
       </g>
     </svg>
+<!-- 
+<div class="grid-container">
+   <div class="header-items">
 
-    <span>{{ title }} app is running!</span>
+    <svg
+    xmlns:dc="http://purl.org/dc/elements/1.1/"
+    xmlns:cc="http://creativecommons.org/ns#"
+    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+    xmlns:svg="http://www.w3.org/2000/svg"
+    xmlns="http://www.w3.org/2000/svg"
+    version="1.1"
+    id="svg833"
+    width="120"
+    height="120"
+    viewBox="0 0 120 120">
+   <defs
+      id="defs837">
+     <filter
+        style="color-interpolation-filters:sRGB"
+        id="filter1622"
+        x="-5.8800615e-05"
+        width="1.0001177"
+        y="-5.8799393e-05"
+        height="1.0001177">
+       <feGaussianBlur
+          stdDeviation="0.0024679489"
+          id="feGaussianBlur1624" />
+     </filter>
+     <filter
+        style="color-interpolation-filters:sRGB"
+        id="filter2094"
+        x="-0.021210546"
+        width="1.0424211"
+        y="-0.021209851"
+        height="1.0424197">
+       <feGaussianBlur
+          stdDeviation="0.52796792"
+          id="feGaussianBlur2096" />
+     </filter>
+     <filter
+        style="color-interpolation-filters:sRGB"
+        id="filter2286"
+        x="-0.13720451"
+        width="1.2744091"
+        y="-0.13722497"
+        height="1.2744499">
+       <feGaussianBlur
+          stdDeviation="0.74799225"
+          id="feGaussianBlur2288" />
+     </filter>
+     <filter
+        style="color-interpolation-filters:sRGB"
+        id="filter2374"
+        x="-0.088567071"
+        width="1.1771342"
+        y="-0.088572159"
+        height="1.1771443">
+       <feGaussianBlur
+          stdDeviation="1.2552048"
+          id="feGaussianBlur2376" />
+     </filter>
+     <filter
+        style="color-interpolation-filters:sRGB"
+        id="filter2454"
+        x="-0.037299629"
+        width="1.0745993"
+        y="-0.037296917"
+        height="1.0745938">
+       <feGaussianBlur
+          stdDeviation="0.31172414"
+          id="feGaussianBlur2456" />
+     </filter>
+   </defs>
+   <g
+      id="g841">
+     <path
+        id="path1705"
+        d="M 59.956053,30.128907 A 29.870794,29.870794 0 0 0 30.129881,60.000001 29.870794,29.870794 0 0 0 60.000975,89.871094 29.870794,29.870794 0 0 0 89.870119,60.000001 29.870794,29.870794 0 0 0 60.000975,30.128907 a 29.870794,29.870794 0 0 0 -0.04492,0 z m 1.785157,2.453125 a 27.472408,27.472408 0 0 1 12.710939,4.054687 l -3.09766,5.00586 a 21.585466,21.585466 0 0 1 7.98438,8.771484 l 5.27539,-2.615234 a 27.472408,27.472408 0 0 1 2.8457,13.035156 l -5.88476,-0.179688 a 21.585466,21.585466 0 0 1 -3.60352,11.300782 l 4.90234,3.261718 a 27.472408,27.472408 0 0 1 -9.86523,8.980469 l -2.78711,-5.185547 a 21.585466,21.585466 0 0 1 -10.220704,2.574219 21.585466,21.585466 0 0 1 -1.36914,-0.04492 l -0.373047,5.876953 A 27.472408,27.472408 0 0 1 45.54785,83.363282 l 3.097657,-5.00586 a 21.585466,21.585466 0 0 1 -7.984376,-8.771484 l -5.27539,2.615234 A 27.472408,27.472408 0 0 1 32.540038,59.166016 l 5.884765,0.179688 a 21.585466,21.585466 0 0 1 3.603516,-11.300782 l -4.902344,-3.261718 a 27.472408,27.472408 0 0 1 9.865235,-8.980469 l 2.789062,5.185547 a 21.585466,21.585466 0 0 1 10.220703,-2.574219 21.585466,21.585466 0 0 1 1.367188,0.04492 z" />
+     <g
+        id="g2486">
+       <path
+          id="path1481"
+          d="M 59.999022,1.5664068 A 58.43338,58.43338 0 0 0 1.5673816,60.000001 58.43338,58.43338 0 0 0 59.999022,118.43359 58.43338,58.43338 0 0 0 118.43262,60.000001 58.43338,58.43338 0 0 0 59.999022,1.5664068 Z m 0,5.4511718 A 52.982506,52.982506 0 0 1 112.9834,60.000001 52.982506,52.982506 0 0 1 59.999022,112.98242 52.982506,52.982506 0 0 1 7.0166005,60.000001 52.982506,52.982506 0 0 1 59.999022,7.0175786 Z" />
+       <path
+          id="path1537"
+          d="M 49.057616,14.640625 A 46.659489,46.659489 0 0 0 17.510741,40.722657 l 3.601562,1.689453 a 42.952896,42.952896 0 0 0 -4.054687,17.361328 l 1.298828,0.0078 a 41.644684,41.644684 0 0 0 -0.002,0.21875 41.644684,41.644684 0 0 0 0,0.0098 h 1.96289 a 39.682369,39.682369 0 0 0 0.01367,0.992188 39.682369,39.682369 0 0 0 5.09961,18.476562 l 2.59375,-1.460937 A 36.460297,37.502018 0 0 0 49.159129,95.80471 l -0.974609,3.218753 a 40.772541,40.772541 0 0 1 -0.365234,-0.11328 l -0.259766,0.83203 a 41.644684,41.644684 0 0 0 12.441406,1.902337 41.644684,41.644684 0 0 0 13.736323,-2.332027 l -1.36713,-3.910179 a 37.502018,37.502018 0 0 0 15.82422,-10.675781 l 3.11523,2.732422 a 41.644684,41.644684 0 0 0 1.46289,-1.763672 l 2.23047,1.748047 a 44.479137,44.479137 0 0 1 -0.0703,0.08984 l 1.72851,1.330078 a 46.659489,46.659489 0 0 0 9.998051,-28.863281 46.659489,46.659489 0 0 0 -1.79688,-12.822266 l -4.56054,1.36914 A 42.080753,42.080753 0 0 0 93.975599,35.822262 l -2.88868,2.054688 A 38.156124,38.156124 0 0 0 60.000975,21.843751 38.156124,38.156124 0 0 0 51.05371,22.908204 h -0.002 z m 10.777344,10.47461 a 34.885597,34.885597 0 0 1 0.166015,0 A 34.885597,34.885597 0 0 1 94.885739,60.000001 34.885597,34.885597 0 0 1 60.000975,94.884766 34.885597,34.885597 0 0 1 25.114257,60.000001 34.885597,34.885597 0 0 1 59.83496,25.115235 Z" />
+     </g>
+     <path
+        id="path1837"
+        d="m 59.987303,42.994141 a 17.006729,17.006729 0 0 0 -16.99414,17.00586 17.006729,17.006729 0 0 0 17.007812,17.005859 17.006729,17.006729 0 0 0 17.005864,-17.005859 17.006729,17.006729 0 0 0 -17.005864,-17.00586 17.006729,17.006729 0 0 0 -0.01367,0 z m 0.01367,3.050781 A 13.954239,13.954239 0 0 1 73.954099,60.000001 13.954239,13.954239 0 0 1 60.000975,73.955079 13.954239,13.954239 0 0 1 46.045897,60.000001 13.954239,13.954239 0 0 1 60.000975,46.044922 Z" />
+     <path
+        id="path1860"
+        d="m 59.946522,49.970524 a 10.029379,10.029379 0 0 0 -9.97528,10.02947 10.029379,10.029379 0 0 0 10.029469,10.029469 10.029379,10.029379 0 0 0 10.028048,-10.029469 10.029379,10.029379 0 0 0 -10.028048,-10.02947 10.029379,10.029379 0 0 0 -0.05419,0 z m 0.05419,1.27347 a 8.7558069,8.7558069 0 0 1 8.754577,8.756 8.7558069,8.7558069 0 0 1 -8.754579,8.755999 8.7558069,8.7558069 0 0 1 -8.755999,-8.755999 8.7558069,8.7558069 0 0 1 8.755999,-8.756 z" />
+     <path
+        id="path1883"
+        d="m 60.000975,53.458985 a 6.5410495,6.5410495 0 0 0 -6.542968,6.541016 6.5410495,6.5410495 0 0 0 6.542968,6.541015 6.5410495,6.5410495 0 0 0 6.541014,-6.541015 6.5410495,6.5410495 0 0 0 -6.541014,-6.541016 z m 0,1.96289 a 4.5787344,4.5787344 0 0 1 4.578125,4.578126 4.5787344,4.5787344 0 0 1 -4.578125,4.578124 4.5787344,4.5787344 0 0 1 -4.580078,-4.578124 4.5787344,4.5787344 0 0 1 4.580078,-4.578126 z" />
+   </g>
 
-    <svg id="rocket-smoke" xmlns="http://www.w3.org/2000/svg" width="516.119" height="1083.632" viewBox="0 0 516.119 1083.632">
-      <title>Rocket Ship Smoke</title>
-      <path id="Path_40" data-name="Path 40" d="M644.6,141S143.02,215.537,147.049,870.207s342.774,201.755,342.774,201.755S404.659,847.213,388.815,762.2c-27.116-145.51-11.551-384.124,271.9-609.1C671.15,139.365,644.6,141,644.6,141Z" transform="translate(-147.025 -140.939)" fill="#f5f5f5"/>
-    </svg>
+ </svg>
+ <svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   id="svg833"
+   width="120"
+   height="120"
+   viewBox="0 0 120 120">
+   <g
+     id="g842">
+    <path
+       id="path1481"
+       style="fill:#00ffff;fill-opacity:1;stroke:none;stroke-width:10"
+       d="M 59.999022,1.5664068 A 58.43338,58.43338 0 0 0 1.5673816,60.000001 58.43338,58.43338 0 0 0 59.999022,118.43359 58.43338,58.43338 0 0 0 118.43262,60.000001 58.43338,58.43338 0 0 0 59.999022,1.5664068 Z m 0,5.4511718 A 52.982506,52.982506 0 0 1 112.9834,60.000001 52.982506,52.982506 0 0 1 59.999022,112.98242 52.982506,52.982506 0 0 1 7.0166005,60.000001 52.982506,52.982506 0 0 1 59.999022,7.0175786 Z" />
+    <path
+       id="rect2490"
+       d="M 60 27.814453 L 11.898438 75.916016 L 17.744141 81.761719 L 38.591797 81.761719 L 60 60.351562 L 81.408203 81.761719 L 102.25586 81.761719 L 108.10156 75.916016 L 60 27.814453 z " />
+    <path
+       id="rect2490-2"
+       d="m 60.000001,63.186017 -9.94531,9.945313 h 19.89062 z" />
+    <path
+       id="rect2490-6"
+       style="fill:#000000;fill-opacity:1;stroke:none;stroke-width:46.8659;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M 60.000001,32.813121 25.246852,67.566267 27.902572,70.222004 60.000001,38.12459 92.0974,70.222004 94.75315,67.566267 Z" />
+  </g>
+   </svg>
 
-  </div>
+   <svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   id="svg833"
+   width="120"
+   height="120"
+   viewBox="0 0 120 120">
+  <defs
+     id="defs837">
+    <filter
+       style="color-interpolation-filters:sRGB"
+       id="filter1622"
+       x="-5.8800615e-05"
+       width="1.0001177"
+       y="-5.8799393e-05"
+       height="1.0001177">
+      <feGaussianBlur
+         stdDeviation="0.0024679489"
+         id="feGaussianBlur1624" />
+    </filter>
+  </defs>
+  <g
+     id="g841">
+    <path
+       id="path1481"
+       style="fill:#00ffff;fill-opacity:1;stroke:none;stroke-width:10"
+       d="M 59.999022,1.5664068 A 58.43338,58.43338 0 0 0 1.5673816,60.000001 58.43338,58.43338 0 0 0 59.999022,118.43359 58.43338,58.43338 0 0 0 118.43262,60.000001 58.43338,58.43338 0 0 0 59.999022,1.5664068 Z m 0,5.4511718 A 52.982506,52.982506 0 0 1 112.9834,60.000001 52.982506,52.982506 0 0 1 59.999022,112.98242 52.982506,52.982506 0 0 1 7.0166005,60.000001 52.982506,52.982506 0 0 1 59.999022,7.0175786 Z" />
+    <path
+       id="path2672"
+       d="M 59.601472,12.687446 A 47.313644,47.313644 0 0 0 12.687236,60.000208 47.313644,47.313644 0 0 0 59.999998,107.31297 47.313644,47.313644 0 0 0 107.31276,60.000208 47.313644,47.313644 0 0 0 59.999998,12.687446 a 47.313644,47.313644 0 0 0 -0.398526,0 z m 0.187667,5.412776 a 41.899645,41.899645 0 0 1 0.210859,0 A 41.899645,41.899645 0 0 1 101.89999,60.000208 41.899645,41.899645 0 0 1 59.999998,101.9002 41.899645,41.899645 0 0 1 18.100011,60.000208 41.899645,41.899645 0 0 1 59.789139,18.100222 Z" />
+    <g
+       id="g2834">
+      <path
+         id="path2742"
+         style="opacity:1;fill:#00b200;fill-opacity:1;stroke:none;stroke-width:46.8661;stroke-miterlimit:4;stroke-dasharray:none"
+         d="M 80.6031,81.695312 V 68.830078 H 98.591381 V 51.169922 H 80.6031 V 38.304688 H 75.796459 L 63.794506,51.425781 v 17.148438 l 12.001953,13.121093 z" />
+      <path
+         id="path2672-5"
+         style="opacity:0;fill:#000000;fill-opacity:0;stroke:none;stroke-width:46.8661;stroke-miterlimit:4;stroke-dasharray:none"
+         d="M 59.601473,12.68745 A 47.313644,47.313644 0 0 0 12.687237,60.000212 47.313644,47.313644 0 0 0 60.000003,107.31297 47.313644,47.313644 0 0 0 107.31276,60.000212 47.313644,47.313644 0 0 0 60.000003,12.68745 a 47.313644,47.313644 0 0 0 -0.39853,0 z m 0.18767,5.412776 a 41.899645,41.899645 0 0 1 0.21086,0 A 41.899645,41.899645 0 0 1 101.89999,60.000212 41.899645,41.899645 0 0 1 60.000003,101.9002 41.899645,41.899645 0 0 1 18.100012,60.000212 41.899645,41.899645 0 0 1 59.789143,18.100226 Z" />
+    </g>
+    <g
+       id="g2830">
+      <path
+         id="rect2677"
+         style="opacity:1;fill:#00b200;fill-opacity:1;stroke:none;stroke-width:46.8661;stroke-miterlimit:4;stroke-dasharray:none"
+         d="M 39.396902,38.304688 V 51.169922 H 21.408621 v 17.660156 h 17.988281 v 12.865234 h 4.806641 L 56.205496,68.574219 V 51.425781 L 44.203543,38.304688 Z" />
+      <path
+         id="path2672-5-9"
+         style="opacity:0;fill:#000000;fill-opacity:0;stroke:none;stroke-width:46.8661;stroke-miterlimit:4;stroke-dasharray:none"
+         d="M 59.60147,12.687449 A 47.313644,47.313644 0 0 0 12.68724,60.000211 47.313644,47.313644 0 0 0 60,107.31297 47.313644,47.313644 0 0 0 107.31276,60.000211 47.313644,47.313644 0 0 0 60,12.687449 a 47.313644,47.313644 0 0 0 -0.39853,0 z m 0.18767,5.412776 a 41.899645,41.899645 0 0 1 0.21086,0 41.899645,41.899645 0 0 1 41.89999,41.899986 A 41.899645,41.899645 0 0 1 60,101.9002 41.899645,41.899645 0 0 1 18.10001,60.000211 41.899645,41.899645 0 0 1 59.78914,18.100225 Z" />
+    </g>
+  </g>
+</svg>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   id="svg833"
+   width="120"
+   height="120"
+   viewBox="0 0 120 120">
+  <defs
+     id="defs837">
+    <filter
+       style="color-interpolation-filters:sRGB"
+       id="filter1622"
+       x="-5.8800615e-05"
+       width="1.0001177"
+       y="-5.8799393e-05"
+       height="1.0001177">
+      <feGaussianBlur
+         stdDeviation="0.0024679489"
+         id="feGaussianBlur1624" />
+    </filter>
+  </defs>
+  <g
+     id="g841"
+     style="display:inline">
+    <path
+       id="path2932"
+       style="opacity:1;fill:#009200;fill-opacity:1;stroke:none;stroke-width:46.8661;stroke-miterlimit:4;stroke-dasharray:none"
+       d="M 59.978535,47.135269 A 12.864346,12.864346 0 0 0 47.135271,59.999998 12.864346,12.864346 0 0 0 60,72.864727 12.864346,12.864346 0 0 0 72.864729,59.999998 12.864346,12.864346 0 0 0 60,47.135269 a 12.864346,12.864346 0 0 0 -0.02146,0 z m 0.01469,3.027793 a 9.837441,9.837441 0 0 1 0.0068,0 9.837441,9.837441 0 0 1 9.836936,9.836936 A 9.837441,9.837441 0 0 1 60,69.836935 9.837441,9.837441 0 0 1 50.163064,59.999998 9.837441,9.837441 0 0 1 59.993221,50.163062 Z" />
+    <path
+       id="path1481"
+       style="fill:#00ffff;fill-opacity:1;stroke:none;stroke-width:10"
+       d="M 59.999021,1.5664092 A 58.43338,58.43338 0 0 0 1.5673804,60.000004 58.43338,58.43338 0 0 0 59.999021,118.43359 58.43338,58.43338 0 0 0 118.43262,60.000004 58.43338,58.43338 0 0 0 59.999021,1.5664092 Z m 0,5.4511718 A 52.982506,52.982506 0 0 1 112.9834,60.000004 52.982506,52.982506 0 0 1 59.999021,112.98242 52.982506,52.982506 0 0 1 7.0165993,60.000004 52.982506,52.982506 0 0 1 59.999021,7.017581 Z" />
+    <g
+       id="g2995">
+      <path
+         id="path2900"
+         style="fill:#00ffff;fill-opacity:1;stroke:none;stroke-width:46.8661;stroke-miterlimit:4;stroke-dasharray:none"
+         d="m 74.691406,18.017578 -2.640625,8.125 H 47.296875 L 44.724609,18.226562 A 44.479137,44.479137 0 0 0 15.521484,60 44.479137,44.479137 0 0 0 60,104.47852 44.479137,44.479137 0 0 0 104.47266,60.666016 l -6.787113,0.339843 -8.820313,-23.128906 6.314454,-5.091797 A 44.479137,44.479137 0 0 0 74.691406,18.017578 Z M 60,32.527344 A 27.472408,27.472408 0 0 1 87.472656,60 27.472408,27.472408 0 0 1 60,87.472656 27.472408,27.472408 0 0 1 32.527344,60 27.472408,27.472408 0 0 1 60,32.527344 Z m -36.701172,9.71289 7.777344,3.763672 A 32.051144,32.487213 0 0 0 27.949219,60 32.051144,32.487213 0 0 0 56.767578,92.320312 l -0.824219,8.249998 A 40.772541,40.772541 0 0 1 24.419922,79.912109 40.772541,40.772541 0 0 1 23.298828,42.240234 Z" />
+      <circle
+         style="opacity:0.293724;fill:transparent;fill-opacity:1;stroke:none;stroke-width:46.8661;stroke-miterlimit:4;stroke-dasharray:none"
+         id="path2991"
+         cx="60"
+         cy="60"
+         r="47.749664" />
+    </g>
+  </g>
+</svg>
 
-  <!-- Resources -->
-  <h2>Resources</h2>
-  <p>Here are some links to help you get started:</p>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   id="svg833"
+   width="120"
+   height="120"
+   viewBox="0 0 120 120">
+  <defs
+     id="defs837">
+    <filter
+       style="color-interpolation-filters:sRGB"
+       id="filter1622"
+       x="-5.8800615e-05"
+       width="1.0001177"
+       y="-5.8799393e-05"
+       height="1.0001177">
+      <feGaussianBlur
+         stdDeviation="0.0024679489"
+         id="feGaussianBlur1624" />
+    </filter>
+  </defs>
+  <g
+     id="g841"
+     style="display:inline">
+    <path
+       id="path1481"
+       style="fill:#00ffff;fill-opacity:1;stroke:none;stroke-width:10"
+       d="M 59.999021,1.5664092 A 58.43338,58.43338 0 0 0 1.5673804,60.000004 58.43338,58.43338 0 0 0 59.999021,118.43359 58.43338,58.43338 0 0 0 118.43262,60.000004 58.43338,58.43338 0 0 0 59.999021,1.5664092 Z m 0,5.4511718 A 52.982506,52.982506 0 0 1 112.9834,60.000004 52.982506,52.982506 0 0 1 59.999021,112.98242 52.982506,52.982506 0 0 1 7.0165993,60.000004 52.982506,52.982506 0 0 1 59.999021,7.017581 Z" />
+    <path
+       id="large1"
+       d="M 60,8.7910156 40.724609,17.882812 v 6.125 1.691407 6.125 L 60,22.732422 79.275391,31.824219 v -6.125 -1.691407 -6.125 z" />
+    <path
+       id="smallLast1"
+       d="m 60,23.419066 -19.275391,9.091797 v 3.085938 L 60,26.503051 l 19.275391,9.09375 v -3.085938 z" />
+    <path
+       id="smallMiddle1"
+       d="m 60,27.327584 -19.27539,9.091797 v 3.085938 L 60,30.41157 79.27539,39.50532 v -3.085939 z" />
+    <path
+       id="smallFirst1"
+       d="m 59.999999,31.453528 -19.275388,9.091797 v 3.085938 l 19.275388,-9.09375 19.27539,9.09375 v -3.085938 z" />
+    <path
+       id="large2"
+       d="m 104.35397,85.614337 1.76396,-21.238877 -5.3044,-3.0625 -1.464803,-0.845703 -5.304406,-3.0625 -1.763968,21.238876 -17.511423,12.14708 5.304406,3.0625 1.464801,0.845704 5.304406,3.0625 z" />
+    <path
+       id="smallLast2"
+       d="M 91.685702,78.300311 93.44967,57.061435 90.777169,55.518466 89.014893,76.758319 71.501778,88.904422 74.174279,90.447391 Z" />
+    <path
+       id="smallMiddle2" 
+       d="m 88.300826,76.346052 1.763968,-21.238875 -2.672501,-1.542969 -1.762277,21.239851 -17.513114,12.146103 2.672502,1.542969 z" />
+    <path
+       id="smallFirst2"
+       d="M 84.727654,74.28308 86.491621,53.044205 83.81912,51.501236 82.056845,72.741087 64.543731,84.88719 l 2.672501,1.542969 z" />
+    <path
+       id="large3"
+       d="m 15.646034,85.614338 17.511422,12.14708 5.304406,-3.0625 1.464801,-0.845703 5.304406,-3.0625 -17.511423,-12.14708 -1.763968,-21.238877 -5.304406,3.0625 -1.464801,0.845704 -5.304406,3.0625 z" />
+    <path
+       id="smallLast3"
+       d="M 28.314297,78.300313 45.82572,90.447393 48.498221,88.904424 30.985107,76.75832 29.22283,55.518467 26.550329,57.061436 Z" />
+    <path
+       id="smallMiddle3"
+       d="M 31.699173,76.346054 49.210595,88.493133 51.883096,86.950164 34.369983,74.804061 32.607707,53.564209 29.935205,55.107178 Z" />
+    <path
+       id="smallFirst3"
+       d="M 35.272346,74.283083 52.783767,86.43016 55.456268,84.887191 37.943155,72.74109 36.180879,51.501238 33.508378,53.044207 Z" />
+  </g>
+</svg>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   id="svg833"
+   width="120"
+   height="120"
+   viewBox="0 0 120 120">
+  <defs
+     id="defs837">
+    <filter
+       style="color-interpolation-filters:sRGB"
+       id="filter1622"
+       x="-5.8800615e-05"
+       width="1.0001177"
+       y="-5.8799393e-05"
+       height="1.0001177">
+      <feGaussianBlur
+         stdDeviation="0.0024679489"
+         id="feGaussianBlur1624" />
+    </filter>
+    <filter
+       style="color-interpolation-filters:sRGB"
+       id="filter3505"
+       x="-0.012"
+       width="1.024"
+       y="-0.012"
+       height="1.024">
+      <feGaussianBlur
+         stdDeviation="0.54072678"
+         id="feGaussianBlur3507" />
+    </filter>
+  </defs>
+  <g
+     id="g841"
+     style="display:inline">
+    <path
+       id="path1481"
+       style="fill:#00ffff;fill-opacity:1;stroke:none;stroke-width:10"
+       d="M 59.999021,1.5664099 A 58.43338,58.43338 0 0 0 1.5673801,60.000004 58.43338,58.43338 0 0 0 59.999021,118.43359 58.43338,58.43338 0 0 0 118.43262,60.000004 58.43338,58.43338 0 0 0 59.999021,1.5664099 Z m 0,5.4511718 A 52.982506,52.982506 0 0 1 112.9834,60.000004 52.982506,52.982506 0 0 1 59.999021,112.98242 52.982506,52.982506 0 0 1 7.016599,60.000004 52.982506,52.982506 0 0 1 59.999021,7.0175817 Z" />
+    <circle
+       style="opacity:1;fill:#00b100;fill-opacity:1;stroke:none;stroke-width:46.8661;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path3488"
+       cx="60"
+       cy="60"
+       r="6.54105" />
+    <g
+       id="g3494">
+      <path
+         id="path3355"
+         style="opacity:1;fill:#00ffff;fill-opacity:1;stroke:none;stroke-width:46.8662;stroke-miterlimit:4;stroke-dasharray:none"
+         d="m 53.898438,12.421875 a 47.967701,47.967701 0 0 0 -23.058594,9.494141 l 3.046875,3.980468 a 42.952892,42.952892 0 0 0 -12.4375,15.164063 l 4.304687,2.115234 A 38.156124,38.156124 0 0 0 21.84375,60 38.156124,38.156124 0 0 0 24.630859,74.314453 l -9.09375,3.679688 a 47.967701,47.967701 0 0 0 2.306641,4.888671 l 3.449219,-1.871093 a 44.043068,44.043068 0 0 0 33.173828,22.681641 l 0.712891,-5.625001 A 38.374157,38.374157 0 0 0 60,98.375 38.374157,38.374157 0 0 0 88.919922,85.220703 l 7.228516,6.304688 A 47.967701,47.967701 0 0 0 106.10156,73.242188 L 100.6543,71.677734 A 42.29879,42.29879 0 0 0 102.29883,60 42.29879,42.29879 0 0 0 101.34961,51.091797 l -7.248048,1.5625 A 34.885601,34.885601 0 0 1 94.884766,60 34.885601,34.885601 0 0 1 60,94.884766 34.885601,34.885601 0 0 1 25.115234,60 34.885601,34.885601 0 0 1 55.5625,25.398438 Z" />
+      <circle
+         style="opacity:0.126437;fill:transparent;fill-opacity:1;stroke:none;stroke-width:46.8661;stroke-miterlimit:4;stroke-dasharray:none"
+         id="path3490"
+         cx="59.999996"
+         cy="59.999996"
+         r="52.110359" />
+    </g>
+    <g
+       id="g3501">
+      <path
+         id="path3397"
+         style="fill:#133eb4;fill-opacity:1;stroke:none;stroke-width:46.8661;stroke-miterlimit:4;stroke-dasharray:none"
+         d="M 64.580078,26.296875 62.90625,38.611328 A 21.585464,21.585464 0 0 1 81.585938,60 21.585464,21.585464 0 0 1 60,81.585938 21.585464,21.585464 0 0 1 38.414062,60 21.585464,21.585464 0 0 1 42.689453,47.105469 L 32.722656,39.681641 A 34.013458,34.013458 0 0 0 25.986328,60 34.013458,34.013458 0 0 0 60,94.013672 34.013458,34.013458 0 0 0 94.013672,60 34.013458,34.013458 0 0 0 64.580078,26.296875 Z" />
+      <path
+         id="path3407"
+         style="opacity:1;fill:#00b100;fill-opacity:1;stroke:none;stroke-width:46.8662;stroke-miterlimit:4;stroke-dasharray:none"
+         d="m 57.943359,26.048828 a 34.013458,34.013458 0 0 0 -7.224609,1.228516 l 1.666016,5.875 a 27.90848,27.90848 0 0 0 -5.580078,2.257812 l -2.886719,-5.382812 a 34.013458,34.013458 0 0 0 -3.082031,1.871094 l 1.841796,2.703124 a 30.742935,30.742935 0 0 0 -7.064453,6.681641 l 3.458985,2.652344 a 26.382235,26.382235 0 0 1 5.769531,-5.527344 l 2.630859,3.748047 A 21.803499,21.803499 0 0 1 55.8125,38.603516 l -0.878906,-4.494141 a 26.382235,26.382235 0 0 1 8.15625,-0.310547 l 0.408203,-3.46289 A 29.870794,29.870794 0 0 0 60,30.128906 a 29.870794,29.870794 0 0 0 -1.806641,0.05469 z" />
+      <circle
+         style="opacity:0.117437;fill:transparent;fill-opacity:1;stroke:none;stroke-width:46.8661;stroke-miterlimit:4;stroke-dasharray:none"
+         id="path3496"
+         cx="60"
+         cy="60"
+         r="40.118439" />
+    </g>
+    <g
+       id="g3511">
+      <path
+         id="path3486"
+         style="opacity:1;fill:#0064fd;fill-opacity:1;stroke:none;stroke-width:46.8661;stroke-miterlimit:4;stroke-dasharray:none"
+         d="M 10.583576,74.535486 43.86912,65.848748 43.098741,62.896836 9.813197,71.583574 Z m 36.449117,-9.512355 2.953802,-0.770872 -0.770379,-2.951913 -2.953803,0.770873 z" />
+      <circle
+         style="opacity:0.118437;fill:transparent;fill-opacity:1;stroke:none;stroke-width:46.866;stroke-miterlimit:4;stroke-dasharray:none;filter:url(#filter3505)"
+         id="path3503"
+         cx="60.000004"
+         cy="60.000004"
+         r="54.072678" />
+    </g>
+    <g
+       id="g3521">
+      <path
+         id="rect3478"
+         style="opacity:1;fill:#0064fd;fill-opacity:1;stroke:none;stroke-width:46.8661;stroke-miterlimit:4;stroke-dasharray:none"
+         d="M 58.474609,8.5527344 V 42.953125 h 3.050782 V 8.5527344 Z m 0,37.6699216 v 3.052735 h 3.050782 v -3.052735 z" />
+      <circle
+         style="opacity:0.105437;fill:transparent;fill-opacity:1;stroke:none;stroke-width:46.866;stroke-miterlimit:4;stroke-dasharray:none"
+         id="path3513"
+         cx="60"
+         cy="60"
+         r="54.072678" />
+    </g>
+  </g>
+</svg>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   id="svg833"
+   width="120"
+   height="120"
+   viewBox="0 0 120 120">
+  <defs
+     id="defs837">
+    <filter
+       style="color-interpolation-filters:sRGB"
+       id="filter1622"
+       x="-5.8800615e-05"
+       width="1.0001177"
+       y="-5.8799393e-05"
+       height="1.0001177">
+      <feGaussianBlur
+         stdDeviation="0.0024679489"
+         id="feGaussianBlur1624" />
+    </filter>
+  </defs>
+  <g
+     id="g841"
+     style="display:inline">
+    <path
+       id="path1481"
+       style="fill:#00ffff;fill-opacity:1;stroke:none;stroke-width:10"
+       d="M 59.999021,1.5664099 A 58.43338,58.43338 0 0 0 1.5673801,60.000004 58.43338,58.43338 0 0 0 59.999021,118.43359 58.43338,58.43338 0 0 0 118.43262,60.000004 58.43338,58.43338 0 0 0 59.999021,1.5664099 Z m 0,5.4511718 A 52.982506,52.982506 0 0 1 112.9834,60.000004 52.982506,52.982506 0 0 1 59.999021,112.98242 52.982506,52.982506 0 0 1 7.016599,60.000004 52.982506,52.982506 0 0 1 59.999021,7.0175817 Z" />
+    <g
+       id="g3578">
+      <path
+         id="path3523"
+         style="opacity:1;fill:#00ffff;fill-opacity:1;stroke:none;stroke-width:46.8661;stroke-miterlimit:4;stroke-dasharray:none"
+         d="M 59.970703,22.0625 A 37.938087,37.938087 0 0 0 32.078125,34.320312 l 8.824219,8.115235 a 25.946163,25.946163 0 0 1 19.033203,-8.380859 25.946163,25.946163 0 0 1 0.06445,0 A 25.946163,25.946163 0 0 1 85.945312,60 25.946163,25.946163 0 0 1 60,85.945312 25.946163,25.946163 0 0 1 34.851562,66.380859 L 23.228516,69.330078 A 37.938087,37.938087 0 0 0 60,97.9375 37.938087,37.938087 0 0 0 97.9375,60 37.938087,37.938087 0 0 0 60,22.0625 a 37.938087,37.938087 0 0 0 -0.0293,0 z" />
+      <path
+         id="path3523-0"
+         style="display:inline;opacity:1;fill:#008700;fill-opacity:1;stroke:none;stroke-width:46.8661;stroke-miterlimit:4;stroke-dasharray:none"
+         d="M 30.263672,36.439453 A 37.938087,37.938087 0 0 0 22.740234,67.146484 L 34.519531,64.886719 A 25.946163,25.946163 0 0 1 34.054688,60 25.946163,25.946163 0 0 1 39.664062,43.886719 Z" />
+      <circle
+         style="opacity:0.114943;fill:transparent;fill-opacity:1;stroke:none;stroke-width:46.8661;stroke-miterlimit:4;stroke-dasharray:none"
+         id="path3573"
+         cx="60"
+         cy="60"
+         r="46.223419" />
+    </g>
+  </g>
+</svg>
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   id="svg833"
+   width="120"
+   height="120"
+   viewBox="0 0 120 120">
+  <defs
+     id="defs837">
+    <filter
+       style="color-interpolation-filters:sRGB"
+       id="filter1622"
+       x="-5.8800615e-05"
+       width="1.0001177"
+       y="-5.8799393e-05"
+       height="1.0001177">
+      <feGaussianBlur
+         stdDeviation="0.0024679489"
+         id="feGaussianBlur1624" />
+    </filter>
+  </defs>
+  <g
+     id="g841"
+     style="display:inline">
+    <path
+       id="path1481"
+       style="fill:#00ffff;fill-opacity:1;stroke:none;stroke-width:10"
+       d="M 59.999021,1.5664099 A 58.43338,58.43338 0 0 0 1.5673801,60.000004 58.43338,58.43338 0 0 0 59.999021,118.43359 58.43338,58.43338 0 0 0 118.43262,60.000004 58.43338,58.43338 0 0 0 59.999021,1.5664099 Z m 0,5.4511718 A 52.982506,52.982506 0 0 1 112.9834,60.000004 52.982506,52.982506 0 0 1 59.999021,112.98242 52.982506,52.982506 0 0 1 7.016599,60.000004 52.982506,52.982506 0 0 1 59.999021,7.0175817 Z" />
+    <circle
+       style="opacity:1;fill:#00ffff;fill-opacity:1;stroke:none;stroke-width:46.8661;stroke-miterlimit:4;stroke-dasharray:none"
+       id="path3671"
+       cx="60"
+       cy="60"
+       r="7.4131899" />
+    <g
+       id="g3685">
+      <path
+         id="path3580"
+         style="opacity:1;fill:#00ffff;fill-opacity:1;stroke:none;stroke-width:46.8661;stroke-miterlimit:4;stroke-dasharray:none"
+         d="M 59.974609,16.611328 A 43.388966,43.388966 0 0 0 16.611328,60 43.388966,43.388966 0 0 0 60,103.38867 43.388966,43.388966 0 0 0 103.38867,60 43.388966,43.388966 0 0 0 97.642578,38.421875 a 9.3755045,9.3755045 0 0 0 1.603516,-5.240234 9.3755045,9.3755045 0 0 0 -9.375,-9.375 9.3755045,9.3755045 0 0 0 -0.05078,0 9.3755045,9.3755045 0 0 0 -4.326171,1.085937 A 43.388966,43.388966 0 0 0 60,16.611328 a 43.388966,43.388966 0 0 0 -0.02539,0 z m -0.0059,6.105469 a 37.283985,37.283985 0 0 1 0.03125,0 37.283985,37.283985 0 0 1 21.292969,6.679687 9.3755045,9.3755045 0 0 0 -0.796875,3.785157 9.3755045,9.3755045 0 0 0 9.375,9.375 A 9.3755045,9.3755045 0 0 0 92.71285,42.115234 37.283985,37.283985 0 0 1 97.283203,60 37.283985,37.283985 0 0 1 60,97.283203 37.283985,37.283985 0 0 1 22.716797,60 37.283985,37.283985 0 0 1 59.96875,22.716797 Z m 29.902344,5.232422 a 5.2328396,5.2328396 0 0 1 5.232422,5.232422 5.2328396,5.2328396 0 0 1 -5.232422,5.232421 5.2328396,5.2328396 0 0 1 -5.232422,-5.232421 5.2328396,5.2328396 0 0 1 5.232422,-5.232422 z" />
+      <circle
+         style="opacity:1;fill:#0079ff;fill-opacity:1;stroke:none;stroke-width:46.8661;stroke-miterlimit:4;stroke-dasharray:none"
+         id="path3616"
+         cx="89.870796"
+         cy="33.181694"
+         r="3.2705247" />
+      <ellipse
+         style="opacity:0.186782;fill:transparent;fill-opacity:1;stroke:none;stroke-width:46.8661;stroke-miterlimit:4;stroke-dasharray:none"
+         id="path3673"
+         cx="60"
+         cy="60"
+         rx="49.769459"
+         ry="51.892326" />
+    </g>
+    <g
+       id="g3680">
+      <path
+         id="path3619"
+         style="opacity:1;fill:#008a00;fill-opacity:1;stroke:none;stroke-width:46.8661;stroke-miterlimit:4;stroke-dasharray:none"
+         d="M 59.785156,29.912109 A 30.088829,30.088829 0 0 0 29.912109,60 h 17.22461 A 12.864065,12.864065 0 0 1 60,47.136719 v -17.22461 a 30.088829,30.088829 0 0 0 -0.214844,0 z" />
+      <path
+         id="path3645"
+         style="opacity:1;fill:#008a00;fill-opacity:1;stroke:none;stroke-width:46.8661;stroke-miterlimit:4;stroke-dasharray:none"
+         d="M 72.863281,60 A 12.864065,12.864065 0 0 1 60,72.863281 v 17.22461 A 30.088829,30.088829 0 0 0 90.087891,60 Z" />
+      <circle
+         style="opacity:0.196782;fill:transparent;fill-opacity:1;stroke:none;stroke-width:46.8661;stroke-miterlimit:4;stroke-dasharray:none"
+         id="path3675"
+         cx="60"
+         cy="60"
+         r="34.885597" />
+    </g>
+  </g>
+</svg>
 
-  <div class="card-container">
-    <a class="card" target="_blank" rel="noopener" href="https://angular.io/tutorial">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg>
-
-      <span>Learn Angular</span>
-
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>    </a>
-
-    <a class="card" target="_blank" rel="noopener" href="https://angular.io/cli">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M9.4 16.6L4.8 12l4.6-4.6L8 6l-6 6 6 6 1.4-1.4zm5.2 0l4.6-4.6-4.6-4.6L16 6l6 6-6 6-1.4-1.4z"/></svg>
-
-      <span>CLI Documentation</span>
-
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-    </a>
-
-    <a class="card" target="_blank" rel="noopener" href="https://blog.angular.io/">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M13.5.67s.74 2.65.74 4.8c0 2.06-1.35 3.73-3.41 3.73-2.07 0-3.63-1.67-3.63-3.73l.03-.36C5.21 7.51 4 10.62 4 14c0 4.42 3.58 8 8 8s8-3.58 8-8C20 8.61 17.41 3.8 13.5.67zM11.71 19c-1.78 0-3.22-1.4-3.22-3.14 0-1.62 1.05-2.76 2.81-3.12 1.77-.36 3.6-1.21 4.62-2.58.39 1.29.59 2.65.59 4.04 0 2.65-2.15 4.8-4.8 4.8z"/></svg>
-
-      <span>Angular Blog</span>
-
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg>
-    </a>
-
-  </div>
-
-  <!-- Next Steps -->
-  <h2>Next Steps</h2>
-  <p>What do you want to do next with your app?</p>
-
-  <input type="hidden" #selection>
-
-  <div class="card-container">
-    <div class="card card-small" (click)="selection.value = 'component'" tabindex="0">
-        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-
-      <span>New Component</span>
-    </div>
-
-    <div class="card card-small" (click)="selection.value = 'material'" tabindex="0">
-        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-
-      <span>Angular Material</span>
-    </div>
-
-    <div class="card card-small" (click)="selection.value = 'pwa'" tabindex="0">
-        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-
-      <span>Add PWA Support</span>
-    </div>
-
-    <div class="card card-small" (click)="selection.value = 'dependency'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-
-      <span>Add Dependency</span>
-    </div>
-
-    <div class="card card-small" (click)="selection.value = 'test'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-
-      <span>Run and Watch Tests</span>
-    </div>
-
-    <div class="card card-small" (click)="selection.value = 'build'" tabindex="0">
-      <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z"/></svg>
-
-      <span>Build for Production</span>
-    </div>
-  </div>
-
-  <!-- Terminal -->
-  <div class="terminal" [ngSwitch]="selection.value">
-      <pre *ngSwitchDefault>ng generate component xyz</pre>
-      <pre *ngSwitchCase="'material'">ng add @angular/material</pre>
-      <pre *ngSwitchCase="'pwa'">ng add @angular/pwa</pre>
-      <pre *ngSwitchCase="'dependency'">ng add _____</pre>
-      <pre *ngSwitchCase="'test'">ng test</pre>
-      <pre *ngSwitchCase="'build'">ng build</pre>
-  </div>
-
-  <!-- Links -->
-  <div class="card-container">
-    <a class="circle-link" title="Animations" href="https://angular.io/guide/animations" target="_blank" rel="noopener">
-      <svg id="Group_20" data-name="Group 20" xmlns="http://www.w3.org/2000/svg" width="21.813" height="23.453" viewBox="0 0 21.813 23.453">
-        <path id="Path_15" data-name="Path 15" d="M4099.584,972.736h0l-10.882,3.9,1.637,14.4,9.245,5.153,9.245-5.153,1.686-14.4Z" transform="translate(-4088.702 -972.736)" fill="#ffa726"/>
-        <path id="Path_16" data-name="Path 16" d="M4181.516,972.736v23.453l9.245-5.153,1.686-14.4Z" transform="translate(-4170.633 -972.736)" fill="#fb8c00"/>
-        <path id="Path_17" data-name="Path 17" d="M4137.529,1076.127l-7.7-3.723,4.417-2.721,7.753,3.723Z" transform="translate(-4125.003 -1058.315)" fill="#ffe0b2"/>
-        <path id="Path_18" data-name="Path 18" d="M4137.529,1051.705l-7.7-3.723,4.417-2.721,7.753,3.723Z" transform="translate(-4125.003 -1036.757)" fill="#fff3e0"/>
-        <path id="Path_19" data-name="Path 19" d="M4137.529,1027.283l-7.7-3.723,4.417-2.721,7.753,3.723Z" transform="translate(-4125.003 -1015.199)" fill="#fff"/>
-      </svg>
-    </a>
-
-    <a class="circle-link" title="CLI" href="https://cli.angular.io/" target="_blank" rel="noopener">
-      <svg xmlns="http://www.w3.org/2000/svg" width="21.762" height="23.447" viewBox="0 0 21.762 23.447">
-        <title>Angular CLI Logo</title>
-        <g id="Group_21" data-name="Group 21" transform="translate(0)">
-          <path id="Path_20" data-name="Path 20" d="M2660.313,313.618h0l-10.833,3.9,1.637,14.4,9.2,5.152,9.244-5.152,1.685-14.4Z" transform="translate(-2649.48 -313.618)" fill="#37474f"/>
-          <path id="Path_21" data-name="Path 21" d="M2741.883,313.618v23.447l9.244-5.152,1.685-14.4Z" transform="translate(-2731.05 -313.618)" fill="#263238"/>
-          <path id="Path_22" data-name="Path 22" d="M2692.293,379.169h11.724V368.618h-11.724Zm11.159-.6h-10.608v-9.345h10.621v9.345Z" transform="translate(-2687.274 -362.17)" fill="#fff"/>
-          <path id="Path_23" data-name="Path 23" d="M2709.331,393.688l.4.416,2.265-2.28-2.294-2.294-.4.4,1.893,1.893Z" transform="translate(-2702.289 -380.631)" fill="#fff"/>
-          <rect id="Rectangle_12" data-name="Rectangle 12" width="3.517" height="0.469" transform="translate(9.709 13.744)" fill="#fff"/>
-        </g>
-      </svg>
-    </a>
-
-    <a class="circle-link" title="Find a Local Meetup" href="https://www.meetup.com/find/?keywords=angular" target="_blank" rel="noopener">
-      <svg xmlns="http://www.w3.org/2000/svg" width="24.607" height="23.447" viewBox="0 0 24.607 23.447">
-        <title>Meetup Logo</title>
-        <path id="logo--mSwarm" d="M21.221,14.95A4.393,4.393,0,0,1,17.6,19.281a4.452,4.452,0,0,1-.8.069c-.09,0-.125.035-.154.117a2.939,2.939,0,0,1-2.506,2.091,2.868,2.868,0,0,1-2.248-.624.168.168,0,0,0-.245-.005,3.926,3.926,0,0,1-2.589.741,4.015,4.015,0,0,1-3.7-3.347,2.7,2.7,0,0,1-.043-.38c0-.106-.042-.146-.143-.166a3.524,3.524,0,0,1-1.516-.69A3.623,3.623,0,0,1,2.23,14.557a3.66,3.66,0,0,1,1.077-3.085.138.138,0,0,0,.026-.2,3.348,3.348,0,0,1-.451-1.821,3.46,3.46,0,0,1,2.749-3.28.44.44,0,0,0,.355-.281,5.072,5.072,0,0,1,3.863-3,5.028,5.028,0,0,1,3.555.666.31.31,0,0,0,.271.03A4.5,4.5,0,0,1,18.3,4.7a4.4,4.4,0,0,1,1.334,2.751,3.658,3.658,0,0,1,.022.706.131.131,0,0,0,.1.157,2.432,2.432,0,0,1,1.574,1.645,2.464,2.464,0,0,1-.7,2.616c-.065.064-.051.1-.014.166A4.321,4.321,0,0,1,21.221,14.95ZM13.4,14.607a2.09,2.09,0,0,0,1.409,1.982,4.7,4.7,0,0,0,1.275.221,1.807,1.807,0,0,0,.9-.151.542.542,0,0,0,.321-.545.558.558,0,0,0-.359-.534,1.2,1.2,0,0,0-.254-.078c-.262-.047-.526-.086-.787-.138a.674.674,0,0,1-.617-.75,3.394,3.394,0,0,1,.218-1.109c.217-.658.509-1.286.79-1.918a15.609,15.609,0,0,0,.745-1.86,1.95,1.95,0,0,0,.06-1.073,1.286,1.286,0,0,0-1.051-1.033,1.977,1.977,0,0,0-1.521.2.339.339,0,0,1-.446-.042c-.1-.092-.2-.189-.307-.284a1.214,1.214,0,0,0-1.643-.061,7.563,7.563,0,0,1-.614.512A.588.588,0,0,1,10.883,8c-.215-.115-.437-.215-.659-.316a2.153,2.153,0,0,0-.695-.248A2.091,2.091,0,0,0,7.541,8.562a9.915,9.915,0,0,0-.405.986c-.559,1.545-1.015,3.123-1.487,4.7a1.528,1.528,0,0,0,.634,1.777,1.755,1.755,0,0,0,1.5.211,1.35,1.35,0,0,0,.824-.858c.543-1.281,1.032-2.584,1.55-3.875.142-.355.28-.712.432-1.064a.548.548,0,0,1,.851-.24.622.622,0,0,1,.185.539,2.161,2.161,0,0,1-.181.621c-.337.852-.68,1.7-1.018,2.552a2.564,2.564,0,0,0-.173.528.624.624,0,0,0,.333.71,1.073,1.073,0,0,0,.814.034,1.22,1.22,0,0,0,.657-.655q.758-1.488,1.511-2.978.35-.687.709-1.37a1.073,1.073,0,0,1,.357-.434.43.43,0,0,1,.463-.016.373.373,0,0,1,.153.387.7.7,0,0,1-.057.236c-.065.157-.127.316-.2.469-.42.883-.846,1.763-1.262,2.648A2.463,2.463,0,0,0,13.4,14.607Zm5.888,6.508a1.09,1.09,0,0,0-2.179.006,1.09,1.09,0,0,0,2.179-.006ZM1.028,12.139a1.038,1.038,0,1,0,.01-2.075,1.038,1.038,0,0,0-.01,2.075ZM13.782.528a1.027,1.027,0,1,0-.011,2.055A1.027,1.027,0,0,0,13.782.528ZM22.21,6.95a.882.882,0,0,0-1.763.011A.882.882,0,0,0,22.21,6.95ZM4.153,4.439a.785.785,0,1,0,.787-.78A.766.766,0,0,0,4.153,4.439Zm8.221,18.22a.676.676,0,1,0-.677.666A.671.671,0,0,0,12.374,22.658ZM22.872,12.2a.674.674,0,0,0-.665.665.656.656,0,0,0,.655.643.634.634,0,0,0,.655-.644A.654.654,0,0,0,22.872,12.2ZM7.171-.123A.546.546,0,0,0,6.613.43a.553.553,0,1,0,1.106,0A.539.539,0,0,0,7.171-.123ZM24.119,9.234a.507.507,0,0,0-.493.488.494.494,0,0,0,.494.494.48.48,0,0,0,.487-.483A.491.491,0,0,0,24.119,9.234Zm-19.454,9.7a.5.5,0,0,0-.488-.488.491.491,0,0,0-.487.5.483.483,0,0,0,.491.479A.49.49,0,0,0,4.665,18.936Z" transform="translate(0 0.123)" fill="#f64060"/>
-      </svg>
-    </a>
-
-    <a class="circle-link" title="Join the Conversation on Discord" href="https://discord.gg/angular" target="_blank" rel="noopener">
-      <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 245 240">
-        <title>Discord Logo</title>
-        <path d="M104.4 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.2-5 10.2-11.1.1-6.1-4.5-11.1-10.2-11.1zM140.9 103.9c-5.7 0-10.2 5-10.2 11.1s4.6 11.1 10.2 11.1c5.7 0 10.2-5 10.2-11.1s-4.5-11.1-10.2-11.1z"/>
-        <path d="M189.5 20h-134C44.2 20 35 29.2 35 40.6v135.2c0 11.4 9.2 20.6 20.5 20.6h113.4l-5.3-18.5 12.8 11.9 12.1 11.2 21.5 19V40.6c0-11.4-9.2-20.6-20.5-20.6zm-38.6 130.6s-3.6-4.3-6.6-8.1c13.1-3.7 18.1-11.9 18.1-11.9-4.1 2.7-8 4.6-11.5 5.9-5 2.1-9.8 3.5-14.5 4.3-9.6 1.8-18.4 1.3-25.9-.1-5.7-1.1-10.6-2.7-14.7-4.3-2.3-.9-4.8-2-7.3-3.4-.3-.2-.6-.3-.9-.5-.2-.1-.3-.2-.4-.3-1.8-1-2.8-1.7-2.8-1.7s4.8 8 17.5 11.8c-3 3.8-6.7 8.3-6.7 8.3-22.1-.7-30.5-15.2-30.5-15.2 0-32.2 14.4-58.3 14.4-58.3 14.4-10.8 28.1-10.5 28.1-10.5l1 1.2c-18 5.2-26.3 13.1-26.3 13.1s2.2-1.2 5.9-2.9c10.7-4.7 19.2-6 22.7-6.3.6-.1 1.1-.2 1.7-.2 6.1-.8 13-1 20.2-.2 9.5 1.1 19.7 3.9 30.1 9.6 0 0-7.9-7.5-24.9-12.7l1.4-1.6s13.7-.3 28.1 10.5c0 0 14.4 26.1 14.4 58.3 0 0-8.5 14.5-30.6 15.2z"/>
-      </svg>
-    </a>
-  </div>
-
-  <!-- Footer -->
-  <footer>
-      Love Angular?&nbsp;
-      <a href="https://github.com/angular/angular" target="_blank" rel="noopener"> Give our repo a star.
-        <div class="github-star-badge">
-            <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
-          Star
-        </div>
-      </a>
-      <a href="https://github.com/angular/angular" target="_blank" rel="noopener">
-        <svg class="material-icons" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z" fill="#1976d2"/><path d="M0 0h24v24H0z" fill="none"/></svg>
-      </a>
-  </footer>
-
-  <svg id="clouds" xmlns="http://www.w3.org/2000/svg" width="2611.084" height="485.677" viewBox="0 0 2611.084 485.677">
-    <title>Gray Clouds Background</title>
-    <path id="Path_39" data-name="Path 39" d="M2379.709,863.793c10-93-77-171-168-149-52-114-225-105-264,15-75,3-140,59-152,133-30,2.83-66.725,9.829-93.5,26.25-26.771-16.421-63.5-23.42-93.5-26.25-12-74-77-130-152-133-39-120-212-129-264-15-54.084-13.075-106.753,9.173-138.488,48.9-31.734-39.726-84.4-61.974-138.487-48.9-52-114-225-105-264,15a162.027,162.027,0,0,0-103.147,43.044c-30.633-45.365-87.1-72.091-145.206-58.044-52-114-225-105-264,15-75,3-140,59-152,133-53,5-127,23-130,83-2,42,35,72,70,86,49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33,61.112,8.015,113.854-5.72,150.492-29.764a165.62,165.62,0,0,0,110.861-3.236c47,94,178,113,251,33,31.385,4.116,60.563,2.495,86.487-3.311,25.924,5.806,55.1,7.427,86.488,3.311,73,80,204,61,251-33a165.625,165.625,0,0,0,120,0c51,13,108,15,157-5a147.188,147.188,0,0,0,33.5-18.694,147.217,147.217,0,0,0,33.5,18.694c49,20,106,18,157,5a165.625,165.625,0,0,0,120,0c47,94,178,113,251,33C2446.709,1093.793,2554.709,922.793,2379.709,863.793Z" transform="translate(142.69 -634.312)" fill="#eee"/>
-  </svg>
-
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   version="1.1"
+   id="svg833"
+   width="120"
+   height="120"
+   viewBox="0 0 120 120">
+  <defs
+     id="defs837" />
+  <g
+     id="g841"
+     style="display:inline">
+    <path
+       id="path1048"
+       d="M 60,23.587891 A 36.411846,36.411846 0 0 0 23.587891,60 36.411846,36.411846 0 0 0 60,96.412109 36.411846,36.411846 0 0 0 96.412109,60 36.411846,36.411846 0 0 0 60,23.587891 Z M 59.796875,31.65625 A 28.344549,28.344549 0 0 1 60,31.65625 28.344549,28.344549 0 0 1 88.34375,60 28.344549,28.344549 0 0 1 60,88.34375 28.344549,28.344549 0 0 1 31.65625,60 28.344549,28.344549 0 0 1 59.796875,31.65625 Z" />
+    <path
+       id="path1481"
+       style="fill:#00ffff;fill-opacity:1;stroke:none;stroke-width:10"
+       d="M 59.999021,1.5664099 A 58.43338,58.43338 0 0 0 1.5673801,60.000004 58.43338,58.43338 0 0 0 59.999021,118.43359 58.43338,58.43338 0 0 0 118.43262,60.000004 58.43338,58.43338 0 0 0 59.999021,1.5664099 Z m 0,5.4511718 A 52.982506,52.982506 0 0 1 112.9834,60.000004 52.982506,52.982506 0 0 1 59.999021,112.98242 52.982506,52.982506 0 0 1 7.016599,60.000004 52.982506,52.982506 0 0 1 59.999021,7.0175817 Z" />
+    <circle
+       id="path1053"
+       cx="60"
+       cy="60"
+       r="5.6689095" />
+    <g
+       id="g1061">
+      <path
+         id="rect46"
+         style="opacity:1;fill:#00ffff;fill-opacity:1;stroke-width:46.8661"
+         d="m 56.65625,8.5429688 -0.05664,10.5859372 -4.666015,4.337891 v 12.453125 l 4.666015,4.335937 0.01563,2.916016 h 6.769532 l 0.01563,-2.916016 4.666015,-4.335937 V 23.466797 L 63.400391,19.128906 63.34375,8.5429688 Z m -0.01953,38.5527342 0.01953,3.746094 h 6.6875 l 0.01953,-3.746094 z" />
+      <path
+         id="path221"
+         style="opacity:1;fill:#00ffff;fill-opacity:1;stroke-width:46.8661"
+         d="m 106.23497,82.832743 -9.139369,-5.34202 -1.423717,-6.209833 -10.784722,-6.226563 -6.088039,1.872919 -2.533159,-1.444472 -3.384766,5.862587 2.517529,1.471544 1.422024,6.208856 10.784722,6.226562 6.089737,-1.871951 9.19601,5.243916 z m -33.377881,-19.293281 -3.253978,-1.856133 -3.34375,5.791545 3.234448,1.88996 z" />
+      <path
+         id="path223"
+         style="opacity:1;fill:#00ffff;fill-opacity:1;stroke-width:46.8661"
+         d="m 17.10878,88.624286 9.196009,-5.243916 6.089732,1.871942 10.784723,-6.226562 1.422024,-6.208856 2.517529,-1.471544 -3.384767,-5.862587 -2.533159,1.444472 -6.088039,-1.872919 -10.784721,6.226562 -1.423712,6.209843 -9.139369,5.34202 z m 33.397412,-19.259452 3.234447,-1.889962 -3.34375,-5.791545 -3.253977,1.856135 z" />
+      <circle
+         style="opacity:0.214744;fill:transparent;fill-opacity:1;stroke-width:46.8662"
+         id="path1055"
+         cx="60"
+         cy="60"
+         r="54.944817" />
+    </g>
+  </g>
+</svg>
+      
 </div>
-
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * The content above * * * * * * * * * * * -->
-<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
-<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-<!-- * * * * * * * * * * End of Placeholder * * * * * * * * * * * -->
-<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
-
-<router-outlet></router-outlet>
+<div class="center-core">center</div>
+<div class="menu-control">menu</div>  
+<div class="left-side-items"></div>
+<div class="bottom-items">bottom</div>
+<div class="right-items">right</div>
+</div> -->
